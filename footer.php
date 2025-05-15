@@ -4,8 +4,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="social-links">
-                    <a href="#" class="social-icon linkedin">LinkedIn</a>
-                    <a href="#" class="social-icon twitter">Twitter</a>
+                    <a href="https://www.linkedin.com/in/omardia/" target="_blank" class="social-icon linkedin">LinkedIn</a>
+                    <a href="https://x.com/babaghanoushbb" target="_blank" class="social-icon x-social">X</a>
                     <!-- Add more social links as needed -->
                 </div>
                 
