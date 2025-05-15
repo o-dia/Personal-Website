@@ -82,11 +82,12 @@ p {
 
 .header-reveal-zone {
     position: fixed;
-    top: 0;
+    top: 10px;
     left: 0;
     width: 100%;
     height: 40px; /* Increased height for easier hovering */
     z-index: 9998;
+    pointer-events: none;
 }
 
 /* allow regular header at the top of page (before scrolling down) to be clickable */
