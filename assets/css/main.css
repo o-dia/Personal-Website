@@ -413,6 +413,18 @@ body.admin-bar .sticky-header {
     background-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/x.svg');
 }
 
+.instagram {
+    background-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/instagram.svg');
+}
+
+.garmin {
+    background-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/garmin.svg');
+}
+
+.github {
+    background-image: url('https://cdn.jsdelivr.net/npm/simple-icons@v5/icons/github.svg');
+}
+
 .copyright {
     font-size: 0.85rem;
     color: #666;
