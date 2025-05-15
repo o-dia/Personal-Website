@@ -100,15 +100,21 @@ p {
     left: 0;
     width: 100%;
     z-index: 9999;
-    background-color: #fff; /* Match your theme background */
+    background-color: #fff; /* Matches theme background */
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     transform: translateY(-100%);
+    pointer-events: none; /* Default to no pointer events when hidden */
 }
-
+/* Make sure header is clickable when it appears */
 #masthead.fixed-header.show-header {
     transform: translateY(0);
+    pointer-events: auto; /* Ensure links are clickable */
 }
-
+/* Ensure all links inside the header are clickable */
+#masthead.fixed-header.show-header a,
+#masthead.fixed-header.show-header button {
+    pointer-events: auto;
+}
 /* When admin bar is present */
 body.admin-bar #masthead.fixed-header {
     top: 32px;

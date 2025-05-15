@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
         // Add fixed class when scrolling down past header height
-        if (scrollTop > headerHeight) {
+        if (scrollTop > 10) {
             header.classList.add('fixed-header');
             spacer.classList.add('active');
             // We're NOT adding show-header class here anymore
