@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     hoverZone.style.top = '0';
     hoverZone.style.left = '0';
     hoverZone.style.width = '100%';
-    hoverZone.style.height = '40px';
+    hoverZone.style.height = '50px';
     hoverZone.style.zIndex = '999';
     hoverZone.style.pointerEvents = 'none'; // Start with no pointer events
     document.body.appendChild(hoverZone);
