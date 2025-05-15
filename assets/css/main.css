@@ -217,6 +217,21 @@ body.admin-bar .sticky-header {
 .menu-icon:after {
   bottom: -8px;
 }
+
+/* Current page indicator in navigation */
+.nav-menu .current-menu-item > a,
+.nav-menu .current_page_item > a {
+    border-bottom: 1px solid #333; /* Underline for current page */
+    padding-bottom: 2px; /* Space between text and underline */
+}
+
+/* Current page indicator when sticky header is shown */
+.sticky-header .nav-menu .current-menu-item > a,
+.sticky-header .nav-menu .current_page_item > a {
+    border-bottom: 1px solid #333;
+    padding-bottom: 2px;
+}
+
 /* --------------------------------
  * 4. Content & Posts
  * -------------------------------- */
