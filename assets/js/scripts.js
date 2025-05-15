@@ -28,12 +28,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Sticky Header Implementation
+    // Sticky Header Implementation - HOVER ONLY
     const header = document.getElementById('masthead');
     if (!header) return; // Exit if header doesn't exist
     
-    // Variables
-    let lastScrollTop = 0;
     const headerHeight = header.offsetHeight;
     
     // Create spacer if it doesn't exist
@@ -53,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(revealZone);
     }
     
-    // Scroll handler
+    // Scroll handler - ONLY handle basic positioning, not showing
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
@@ -61,31 +59,42 @@ document.addEventListener('DOMContentLoaded', function() {
         if (scrollTop > headerHeight) {
             header.classList.add('fixed-header');
             spacer.classList.add('active');
-            
-            // Show header when scrolling up, hide when scrolling down
-            if (scrollTop < lastScrollTop) {
-                header.classList.add('show-header');
-            } else {
-                header.classList.remove('show-header');
-            }
+            // We're NOT adding show-header class here anymore
         } else {
             header.classList.remove('fixed-header', 'show-header');
             spacer.classList.remove('active');
         }
-        
-        lastScrollTop = scrollTop;
     });
     
-    // Hover handler for reveal zone
+    // Hover handlers for revealing/hiding the header
+
+    // When mouse enters the reveal zone at top of page
     revealZone.addEventListener('mouseenter', function() {
         if (header.classList.contains('fixed-header')) {
             header.classList.add('show-header');
         }
     });
+
+    // When mouse leaves the reveal zone
+    revealZone.addEventListener('mouseleave', function() {
+        if (header.classList.contains('fixed-header')) {
+            header.classList.remove('show-header');
+        }
+    });
     
-    // Add initial classes
-    if (window.pageYOffset > headerHeight) {
-        header.classList.add('fixed-header');
-        spacer.classList.add('active');
-    }
+    // Also handle direct header hovering
+    // When mouse enters the header itself (after it's shown)
+
+    header.addEventListener('mouseenter', function() {
+        if (header.classList.contains('fixed-header')) {
+            header.classList.add('show-header');
+        }
+    });
+
+    // When mouse leaves the header
+    header.addEventListener('mouseleave', function() {
+        if (header.classList.contains('fixed-header')) {
+            header.classList.remove('show-header');
+        }
+    });
 });
