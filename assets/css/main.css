@@ -221,15 +221,17 @@ body.admin-bar .sticky-header {
 /* Current page indicator in navigation */
 .nav-menu .current-menu-item > a,
 .nav-menu .current_page_item > a {
-    border-bottom: 1px solid #333; /* Underline for current page */
-    padding-bottom: 2px; /* Space between text and underline */
+    border-bottom: 1px solid rgba(0,0,0,0.6); /* Underline for current page */
+    padding-bottom: 3px; /* Space between text and underline */
+    font-weight: 600; /* Slightly bolder text */
 }
 
 /* Current page indicator when sticky header is shown */
 .sticky-header .nav-menu .current-menu-item > a,
 .sticky-header .nav-menu .current_page_item > a {
-    border-bottom: 1px solid #333;
-    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(0,0,0,0.6);
+    padding-bottom: 3px; /* Space between text and underline */
+    font-weight: 600; /* Slightly bolder text */
 }
 
 /* --------------------------------
