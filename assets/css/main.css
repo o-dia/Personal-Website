@@ -71,10 +71,48 @@ p {
 /* --------------------------------
  * 3. Header & Navigation
  * -------------------------------- */
+/* Sticky Header Styles */
+
 .site-header {
-    padding: 30px 0;
-    border-bottom: 1px solid #f0f0f0;
-    margin-bottom: 40px;
+    width: 100%;
+    background-color: #fff; /* Match your site background */
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+/* Fixed position styling */
+.site-header.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%); /* Hide it above the viewport */
+}
+
+/* Show on hover */
+.site-header.fixed.show,
+.reveal-zone:hover + .site-header.fixed {
+    transform: translateY(0); /* Show the header */
+}
+
+/* Hover detection zone at top of viewport */
+.reveal-zone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px; /* Height of hover detection area */
+    z-index: 999;
+    background: transparent;
+}
+
+/* Add spacing to prevent content jump when header becomes fixed */
+.site-header-spacer {
+    display: none;
+}
+
+.site-header-spacer.active {
+    display: block;
 }
 
 .site-header .container {

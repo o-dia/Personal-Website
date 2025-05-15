@@ -11,6 +11,8 @@
 <?php wp_body_open(); ?>
 
 <div id="page" class="site">
+<div class="reveal-zone"></div>
+<div class="site-header-spacer"></div>
     <header id="masthead" class="site-header">
         <div class="container">
             <div class="site-branding">
