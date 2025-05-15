@@ -27,66 +27,65 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    const header = document.querySelector('.site-header');
-    const spacer = document.querySelector('.site-header-spacer');
-    let headerHeight = header.offsetHeight;
-    let scrollPosition = window.pageYOffset;
-    let ticking = false;
-
-    // Initialize header state
-    function initHeader() {
-        headerHeight = header.offsetHeight;
-        spacer.style.height = headerHeight + 'px';
-        checkScrollPosition();
+    // Sticky Header Implementation
+    const header = document.getElementById('masthead');
+    if (!header) return; // Exit if header doesn't exist
+    
+    // Variables
+    let lastScrollTop = 0;
+    const headerHeight = header.offsetHeight;
+    
+    // Create spacer if it doesn't exist
+    let spacer = document.querySelector('.header-spacer');
+    if (!spacer) {
+        spacer = document.createElement('div');
+        spacer.className = 'header-spacer';
+        header.parentNode.insertBefore(spacer, header);
     }
-
-    // Check scroll position and update header
-    function checkScrollPosition() {
-        if (scrollPosition > headerHeight) {
-            header.classList.add('fixed');
+    spacer.style.height = headerHeight + 'px';
+    
+    // Create reveal zone if it doesn't exist
+    let revealZone = document.querySelector('.header-reveal-zone');
+    if (!revealZone) {
+        revealZone = document.createElement('div');
+        revealZone.className = 'header-reveal-zone';
+        document.body.appendChild(revealZone);
+    }
+    
+    // Scroll handler
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Add fixed class when scrolling down past header height
+        if (scrollTop > headerHeight) {
+            header.classList.add('fixed-header');
             spacer.classList.add('active');
             
-            // Show header when near top of page
-            if (scrollPosition < headerHeight * 2) {
-                header.classList.add('show');
+            // Show header when scrolling up, hide when scrolling down
+            if (scrollTop < lastScrollTop) {
+                header.classList.add('show-header');
             } else {
-                header.classList.remove('show');
+                header.classList.remove('show-header');
             }
         } else {
-            header.classList.remove('fixed');
+            header.classList.remove('fixed-header', 'show-header');
             spacer.classList.remove('active');
         }
-    }
-
-    // Scroll event handler with requestAnimationFrame for performance
-    window.addEventListener('scroll', function(e) {
-        scrollPosition = window.pageYOffset;
         
-        if (!ticking) {
-            window.requestAnimationFrame(function() {
-                checkScrollPosition();
-                ticking = false;
-            });
-            
-            ticking = true;
+        lastScrollTop = scrollTop;
+    });
+    
+    // Hover handler for reveal zone
+    revealZone.addEventListener('mouseenter', function() {
+        if (header.classList.contains('fixed-header')) {
+            header.classList.add('show-header');
         }
     });
-
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        initHeader();
-    });
-
-    // Also make header visible when hovering over content near the top
-    header.addEventListener('mouseenter', function() {
-        if (header.classList.contains('fixed')) {
-            header.classList.add('show');
-        }
-    });
-
-    // Initialize
-    initHeader();
+    
+    // Add initial classes
+    if (window.pageYOffset > headerHeight) {
+        header.classList.add('fixed-header');
+        spacer.classList.add('active');
+    }
 });
