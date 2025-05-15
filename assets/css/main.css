@@ -129,22 +129,6 @@ body.admin-bar #masthead.fixed-header {
     transform: translateY(-100%); /* Hide it above the viewport */
 }
 
-/* Show on hover */
-.site-header.fixed.show,
-.reveal-zone:hover + .site-header.fixed {
-    transform: translateY(0); /* Show the header */
-}
-
-/* Hover detection zone at top of viewport */
-.reveal-zone {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20px; /* Height of hover detection area */
-    z-index: 999;
-    background: transparent;
-}
 
 /* Add spacing to prevent content jump when header becomes fixed */
 .site-header-spacer {
@@ -159,6 +143,7 @@ body.admin-bar #masthead.fixed-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 0;
 }
 
 .site-branding {
@@ -166,19 +151,19 @@ body.admin-bar #masthead.fixed-header {
 }
 
 .site-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin: 0;
 }
 
 .site-description {
     font-size: 0.9rem;
     color: #666;
-    margin: 5px 0 0;
+    margin: 2px 0 0;
 }
 .main-navigation {
     text-align: center;
-    padding: 20px 0;
-    margin-bottom: 20px;
+    padding: 10px 0;
+    margin-bottom: 10px;
 }
 
 .nav-menu {

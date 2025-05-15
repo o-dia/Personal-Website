@@ -49,7 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
         revealZone = document.createElement('div');
         revealZone.className = 'header-reveal-zone';
         document.body.appendChild(revealZone);
-    }
+        // Set height to match header
+        revealZone.style.height = headerHeight + 'px';
+}
     
     // Scroll handler - ONLY handle basic positioning, not showing
     window.addEventListener('scroll', function() {
