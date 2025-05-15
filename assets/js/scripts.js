@@ -72,17 +72,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // When mouse enters the reveal zone at top of page
     revealZone.addEventListener('mouseenter', function() {
-        if (header.classList.contains('fixed-header')) {
-            header.classList.add('show-header');
+    if (header.classList.contains('fixed-header')) {
+        header.classList.add('show-header');
+        // make reveal zone transparent to clicks temporarily
+        this.style.pointerEvents = 'none';
         }
     });
 
     // When mouse leaves the reveal zone
     revealZone.addEventListener('mouseleave', function() {
-        if (header.classList.contains('fixed-header')) {
-            header.classList.remove('show-header');
-        }
-    });
+    // Only hide header if not hovering the header itself
+    if (header.classList.contains('fixed-header') && !header.matches(':hover')) {
+        header.classList.remove('show-header');
+    }
+});
     
     // Also handle direct header hovering
     // When mouse enters the header itself (after it's shown)
@@ -97,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
     header.addEventListener('mouseleave', function() {
         if (header.classList.contains('fixed-header')) {
             header.classList.remove('show-header');
+            // Add this line to restore reveal zone's hover detection
+            revealZone.style.pointerEvents = 'auto';
         }
     });
 });

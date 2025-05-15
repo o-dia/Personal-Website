@@ -87,7 +87,7 @@ p {
     width: 100%;
     height: 40px; /* Increased height for easier hovering */
     z-index: 9998;
-    pointer-events: none;
+    pointer-events: auto; /* Explicitly set to auto by default */
 }
 
 /* allow regular header at the top of page (before scrolling down) to be clickable */
