@@ -28,80 +28,108 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Sticky Header Implementation - HOVER ONLY
-    const header = document.getElementById('masthead');
-    if (!header) return; // Exit if header doesn't exist
+    // COMPLETELY REVISED STICKY HEADER IMPLEMENTATION
+    console.log("Initializing sticky header...");
     
-    const headerHeight = header.offsetHeight;
-    
-    // Create spacer if it doesn't exist
-    let spacer = document.querySelector('.header-spacer');
-    if (!spacer) {
-        spacer = document.createElement('div');
-        spacer.className = 'header-spacer';
-        header.parentNode.insertBefore(spacer, header);
+    // 1. Get elements
+    const header = document.querySelector('.site-header') || document.getElementById('masthead');
+    if (!header) {
+        console.warn("Header element not found!");
+        return;
     }
+    
+    console.log("Found header:", header);
+    
+    // 2. Create the hover trigger zone
+    const hoverZone = document.createElement('div');
+    hoverZone.id = 'header-hover-trigger';
+    hoverZone.style.position = 'fixed';
+    hoverZone.style.top = '0';
+    hoverZone.style.left = '0';
+    hoverZone.style.width = '100%';
+    hoverZone.style.height = '40px';
+    hoverZone.style.zIndex = '999';
+    hoverZone.style.pointerEvents = 'none'; // Start with no pointer events
+    document.body.appendChild(hoverZone);
+    
+    // 3. Create a spacer for when header becomes fixed
+    const headerHeight = header.offsetHeight;
+    const spacer = document.createElement('div');
+    spacer.id = 'header-spacer';
     spacer.style.height = headerHeight + 'px';
+    spacer.style.display = 'none';
+    header.parentNode.insertBefore(spacer, header);
     
-    // Create reveal zone if it doesn't exist
-    let revealZone = document.querySelector('.header-reveal-zone');
-    if (!revealZone) {
-        revealZone = document.createElement('div');
-        revealZone.className = 'header-reveal-zone';
-        document.body.appendChild(revealZone);
-        // Set height to match header
-        revealZone.style.height = headerHeight + 'px';
-}
+    console.log("Created hover zone and spacer");
     
-    // Scroll handler - ONLY handle basic positioning, not showing
+    // 4. Track scroll position
+    let lastScrollTop = 0;
+    let headerVisible = false;
+    let isAtTop = true;
+    
+    // 5. Scroll handler
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        isAtTop = scrollTop <= 10;
         
-        // Add fixed class when scrolling down past header height
-        if (scrollTop > 10) {
-            header.classList.add('fixed-header');
-            spacer.classList.add('active');
-            // We're NOT adding show-header class here anymore
+        // At the top - normal header
+        if (isAtTop) {
+            header.classList.remove('sticky-header');
+            header.classList.remove('show-sticky-header');
+            header.style.position = '';
+            header.style.top = '';
+            header.style.width = '';
+            header.style.zIndex = '';
+            spacer.style.display = 'none';
+            hoverZone.style.pointerEvents = 'none';
+            headerVisible = false;
+            
+        // Scrolled down - prepare sticky header
         } else {
-            header.classList.remove('fixed-header', 'show-header');
-            spacer.classList.remove('active');
+            // If we haven't added the class yet
+            if (!header.classList.contains('sticky-header')) {
+                header.classList.add('sticky-header');
+                spacer.style.display = 'block';
+                hoverZone.style.pointerEvents = 'auto';
+            }
+            
+            // Show header when scrolling up
+            if (scrollTop < lastScrollTop && !headerVisible) {
+                header.classList.add('show-sticky-header');
+                headerVisible = true;
+            } 
+            // Hide header when scrolling down
+            else if (scrollTop > lastScrollTop + 5 && headerVisible) {
+                header.classList.remove('show-sticky-header');
+                headerVisible = false;
+            }
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // 6. Hover handlers
+    hoverZone.addEventListener('mouseenter', function() {
+        console.log("Hover zone entered");
+        if (!isAtTop) {
+            header.classList.add('show-sticky-header');
+            headerVisible = true;
         }
     });
     
-    // Hover handlers for revealing/hiding the header
-
-    // When mouse enters the reveal zone at top of page
-    revealZone.addEventListener('mouseenter', function() {
-    if (header.classList.contains('fixed-header')) {
-        header.classList.add('show-header');
-        // make reveal zone transparent to clicks temporarily
-        this.style.pointerEvents = 'none';
-        }
-    });
-
-    // When mouse leaves the reveal zone
-    revealZone.addEventListener('mouseleave', function() {
-    // Only hide header if not hovering the header itself
-    if (header.classList.contains('fixed-header') && !header.matches(':hover')) {
-        header.classList.remove('show-header');
-    }
-});
-    
-    // Also handle direct header hovering
-    // When mouse enters the header itself (after it's shown)
-
-    header.addEventListener('mouseenter', function() {
-        if (header.classList.contains('fixed-header')) {
-            header.classList.add('show-header');
-        }
-    });
-
-    // When mouse leaves the header
     header.addEventListener('mouseleave', function() {
-        if (header.classList.contains('fixed-header')) {
-            header.classList.remove('show-header');
-            // Add this line to restore reveal zone's hover detection
-            revealZone.style.pointerEvents = 'auto';
+        if (!isAtTop && !hoverZone.matches(':hover')) {
+            header.classList.remove('show-sticky-header');
+            headerVisible = false;
         }
     });
+    
+    // 7. Initial state check
+    if (window.pageYOffset > 10) {
+        header.classList.add('sticky-header');
+        spacer.style.display = 'block';
+        hoverZone.style.pointerEvents = 'auto';
+    }
+    
+    console.log("Sticky header initialization complete");
 });
