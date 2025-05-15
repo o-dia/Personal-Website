@@ -89,6 +89,15 @@ p {
     z-index: 9998;
 }
 
+/* allow regular header at the top of page (before scrolling down) to be clickable */
+#masthead a,
+.site-header a,
+.nav-menu a {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 101;
+}
+
 /* Header transition styles */
 #masthead {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -105,6 +114,7 @@ p {
     transform: translateY(-100%);
     pointer-events: none; /* Default to no pointer events when hidden */
 }
+
 /* Make sure header is clickable when it appears */
 #masthead.fixed-header.show-header {
     transform: translateY(0);
