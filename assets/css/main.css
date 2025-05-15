@@ -1,5 +1,5 @@
 /* 
- * Main CSS file for Personal Brand theme
+ * Main CSS file for Personal Website
  * Inspired by dearsafia.com
  */
 
@@ -97,25 +97,43 @@ p {
     color: #666;
     margin: 5px 0 0;
 }
-
 .main-navigation {
-    display: flex;
-    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
 }
 
 .nav-menu {
     display: flex;
-    list-style: none;
+    justify-content: center;
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
 }
 
 .nav-menu li {
-    margin-left: 25px;
+    margin: 0 15px;
+    position: relative;
+    list-style-type: none !important;
 }
 
 .nav-menu a {
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+    color: #555;
+}
+
+/* Remove the bullets */
+.nav-menu li::before,
+.nav-menu li::marker {
+    display: none !important;
+    content: none !important;
 }
 
 .menu-toggle {
